@@ -48,6 +48,14 @@ public class Flight {
 		this.flightdata = flightdata;
 	}
 	
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
 // -------------------------------------------------------
 // HASHCODE & EQUALS
 

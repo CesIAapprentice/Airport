@@ -13,7 +13,6 @@ public class Airport{
 // CONSTRUCTOR     
     
     public Airport(String code) {
-		super();
 		this.code = code;
 	}
 

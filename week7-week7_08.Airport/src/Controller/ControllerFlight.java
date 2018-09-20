@@ -23,10 +23,18 @@ public class ControllerFlight implements InterfaceControllerFlight{
 //---------------------------------------------------------------------
 // METHODS
 	
-	public void addFlight(String planeID, String departAirport, String destAirport) {
+	public void addFlight(ControllerAirport controllerAirport, String planeID, String departAirport, String destAirport) {
 		this.flights.put(planeID, new Flight(planeID));
-		if()
-		this.flights.get(planeID).setFlights(flightdata);
+		this.setRoute(controllerAirport, this.flights.get(planeID), planeID, departAirport, destAirport);
+		
+	}
+	
+	public void setRoute(ControllerAirport controllerAirport, Flight flight, String planeID, 
+							String departAirport, String destAirport) {
+		HashMap<Airport, Airport> temp = new HashMap<Airport, Airport>();
+		temp.put(controllerAirport.getAirport(departAirport), controllerAirport.getAirport(destAirport));
+		
+		flight.getFlightdata().put(this.getAirplane(flight), temp);
 	}
 
 	@Override

@@ -2,14 +2,11 @@ package View;
 
 import java.util.Scanner;
 
-import Controller.Actions;
-
 public class UI {
     
     private Scanner reader;
     private IO io;
     private Menus menus;
-    private Actions actions;
     private String userChoice;
     
 
@@ -17,7 +14,6 @@ public class UI {
     	this.reader = new Scanner(System.in);
         this.io = new IO(this.reader);
         this.menus = new Menus();
-        this.actions = new Actions(this.reader);
     }
     
     public void menu1(){
@@ -34,7 +30,7 @@ public class UI {
             }
         
             else if(this.userChoice.equals("2")){
-                this.actions.addFlight();
+                this.io.addFlight();
                 //System.out.println("");
             }
         
@@ -54,17 +50,17 @@ public class UI {
             String choice=reader.nextLine();
             
             if(choice.equals("1")){
-                this.actions.printPlanes();
+                this.io.printPlanes();
                 //System.out.println("");
             }
         
             else if(choice.equals("2")){
-                this.actions.printFlights();
+                this.io.printFlights();
                 System.out.println("");
             }
             
             else if(choice.equals("3")){
-                this.actions.printPlaneInfo();
+                this.io.printPlaneInfo();
                 System.out.println("");
             }
         

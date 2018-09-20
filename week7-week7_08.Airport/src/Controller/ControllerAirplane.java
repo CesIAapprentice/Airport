@@ -51,5 +51,18 @@ public class ControllerAirplane implements InterfaceControllerAirplane{
 	public void deleteAirplane(String planeID) {
 		this.airplanes.remove(planeID);
 	}
+	
+//---------------------------------------------------------------------
+// GETTERS & SETTERS	
+
+	public Map<String, Airplane> getAirplanes() {
+		return airplanes;
+	}
+
+	public void setAirplanes(Map<String, Airplane> airplanes) {
+		this.airplanes = airplanes;
+	}
+	
+	
 
 }

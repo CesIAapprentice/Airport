@@ -18,6 +18,16 @@ public class ControllerAirport implements InterfaceControllerAirport{
 
 //---------------------------------------------------------------------
 // METHODS
+	
+	public void checkAirports(String departAirport, String destAirport) {
+		if(!this.airports.containsKey(departAirport)) {
+			this.airports.put(departAirport, new Airport(departAirport));
+		}
+		
+		if(!this.airports.containsKey(destAirport)) {
+			this.airports.put(destAirport, new Airport(destAirport));
+		}
+	}
 
 	@Override
 	public void changeCode(Airport airport, String code) {

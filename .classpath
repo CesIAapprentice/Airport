@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="week7-week7_08.Airport/src"/>
+	<classpathentry kind="lib" path="week7-week7_08.Airport/lib/edu-test-utils-0.4.2.jar"/>
+	<classpathentry kind="lib" path="week7-week7_08.Airport/lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="week7-week7_08.Airport/lib/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="week7-week7_08.Airport/lib/testrunner/tmc-junit-runner.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

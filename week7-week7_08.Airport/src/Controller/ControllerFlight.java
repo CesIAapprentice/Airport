@@ -1,5 +1,6 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,47 +10,51 @@ import Model.Flight;
 
 public class ControllerFlight implements InterfaceControllerFlight{
 	
-	Map<String, Flight> flights;
-	
+	Map<Airplane, ArrayList<Flight>> flights;
 
 //---------------------------------------------------------------------
 // CONSTRUCTOR	
 
 	public ControllerFlight() {
-		this.flights = new HashMap<String, Flight>();
+		this.flights = new HashMap<Airplane, ArrayList<Flight>>();
 	}
-	
 	
 //---------------------------------------------------------------------
 // METHODS
 	
-	public void addFlight(ControllerAirport controllerAirport, String planeID, String departAirport, String destAirport) {
-		this.flights.put(planeID, new Flight(planeID));
-		this.setRoute(controllerAirport, this.flights.get(planeID), planeID, departAirport, destAirport);
-		
+	public Flight createFlight(Airport departAirport, Airport destAirport) {
+		return new Flight(departAirport, destAirport);
 	}
 	
-	public void setRoute(ControllerAirport controllerAirport, Flight flight, String planeID, 
-							String departAirport, String destAirport) {
-		HashMap<Airport, Airport> temp = new HashMap<Airport, Airport>();
-		temp.put(controllerAirport.getAirport(departAirport), controllerAirport.getAirport(destAirport));
-		
-		flight.getFlightdata().put(this.getAirplane(flight), temp);
+	public void addFlight(Airplane airplane, Flight flight) {
+		if(!this.flights.containsKey(airplane)) {
+			this.flights.put(airplane, new ArrayList<Flight>());
+		}
+		if(!this.flights.get(airplane).contains(flight)) {
+			this.flights.get(airplane).add(flight);
+		}
 	}
-
+	
 	@Override
 	public Airplane getAirplane(Flight flight) {
-		return flight.getAirplane();
+		for(Airplane airplane : this.flights.keySet()) {
+			if(this.flights.get(airplane).contains(flight)) {
+				return airplane;
+			}
+		}
+		return null;
 	}
 
 	@Override
 	public void changeAirplane(Flight flight, Airplane airplane) {
-		flight.setAirplane(airplane);
+		this.flights.get(airplane).remove(flight);
+		this.addFlight(airplane, flight);
 	}
+
 
 	@Override
 	public Airport getDepartureAirport(Flight flight) {
-		for(Airport airport : flight.getAirports().keySet()) {
+		for(Airport airport : flight.getFlightdata().keySet()) {
 			return airport;
 		}
 		return null;
@@ -57,33 +62,31 @@ public class ControllerFlight implements InterfaceControllerFlight{
 
 	@Override
 	public void changeDepartureAirport(Flight flight, Airport airport) {
-		HashMap<Airport, Airport> temp = new HashMap<Airport, Airport>();
-		temp.put(this.getDepartureAirport(flight), flight.getAirports().get(this.getDepartureAirport(flight)));
-		flight.getFlightdata().remove(flight.getAirplane());
-		flight.getFlightdata().get(flight.getAirplane()).put(airport, temp.get(this.getDepartureAirport(flight)));
+		Airport destAirport = new Airport(this.getDestinyAirport(flight).getCode());
+		flight.getFlightdata().remove(this.getDepartureAirport(flight));
+		flight.getFlightdata().put(airport, destAirport);
 	}
 
 
 	@Override
 	public Airport getDestinyAirport(Flight flight) {
-		return flight.getFlightdata().get(flight.getAirplane()).get(this.getDepartureAirport(flight));
-		
+		return flight.getFlightdata().get(this.getDepartureAirport(flight));
 	}
 
 	@Override
 	public void changeDestinyAirport(Flight flight, Airport airport) {
-		flight.getFlightdata().get(flight.getAirplane()).replace(this.getDepartureAirport(flight), airport);
+		flight.getFlightdata().put(this.getDepartureAirport(flight), airport);
 	}
 	
 //---------------------------------------------------------------------
 // GETTERS & SETTERS		
 
-	public Map<String, Flight> getFlights() {
+	public Map<Airplane, ArrayList<Flight>> getFlights() {
 		return flights;
 	}
 
 
-	public void setFlights(Map<String, Flight> flights) {
+	public void setFlights(Map<Airplane, ArrayList<Flight>> flights) {
 		this.flights = flights;
 	}
 }

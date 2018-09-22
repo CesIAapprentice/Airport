@@ -15,7 +15,7 @@ public class Airplane{
 	
 	@Override
 	public int hashCode() {
-		return Integer.parseInt(planeID);
+		return this.planeID.hashCode();
 	}
 
 	@Override

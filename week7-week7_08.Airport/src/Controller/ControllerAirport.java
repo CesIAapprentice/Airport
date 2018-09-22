@@ -20,12 +20,14 @@ public class ControllerAirport implements InterfaceControllerAirport{
 // METHODS
 	
 	public void checkAirports(String departAirport, String destAirport) {
-		if(!this.airports.containsKey(departAirport)) {
-			this.airports.put(departAirport, new Airport(departAirport));
-		}
+		this.checkAirports(departAirport);
+		this.checkAirports(destAirport);
 		
-		if(!this.airports.containsKey(destAirport)) {
-			this.airports.put(destAirport, new Airport(destAirport));
+	}
+	
+	public void checkAirports(String airport) {
+		if(!this.airports.containsKey(airport)) {
+			this.airports.put(airport, new Airport(airport));
 		}
 	}
 

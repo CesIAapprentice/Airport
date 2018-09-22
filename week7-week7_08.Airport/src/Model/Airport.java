@@ -21,7 +21,7 @@ public class Airport{
 
 	@Override
 	public int hashCode() {
-		return Integer.parseInt(code);
+		return this.code.hashCode();
 	}
 
 	@Override
@@ -45,12 +45,20 @@ public class Airport{
 // GETTERS & SETTERS    
 
 		public String getCode() {
-			return code;
+			return this.code;
 		}
 
 		public void setCode(String code) {
 			this.code = code;
 		}
-	
+
+		
+//---------------------------------------------------------------------
+// TOSTRING    
+
+		@Override
+		public String toString() {
+			return this.code;
+		}
     
 }
